@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <title>Chess</title>
+       <style>
+        body {
+            background-color: #121212;
+        }
+        #play {
+            margin-top: 15%;
+            margin-left: 45%;
+            margin-right: 45%;
+            text-align: center;
+
+            border: ridge 5px antiquewhite;
+            width: 10%;
+            height: 15%;
+            color:antiquewhite;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        #play h1 {
+            position: relative;
+            font-size: 2em;
+        }
+        #play:hover {
+            color:black;
+            background-color: antiquewhite;
+        }
+
+       </style>
+    </head>
+    <body>
+        <div id="play"><h1>PLAY</h1></div>
+    </body>
+    <script>
+        play = document.getElementById("play");
+        play.addEventListener("click", function() {
+            window.open(`${window.origin}/play`, "_self");
+        })
+    </script>
+</html>

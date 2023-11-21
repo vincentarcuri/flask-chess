@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Play Chess!</title>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/styles.css')}}"/>
+        <script src="{{url_for('static', filename='js/create_board.js')}}"></script>
+        <script src="{{url_for('static', filename='js/events.js')}}"></script>
+    </head>
+    <body>
+        <div id="options">
+            <div id="flipBtn" title="Flip"><img src="static/images/flip.png" alt="Flip" /></div>
+        </div>
+        <div id="playerTop">
+            <img id="playerTopImg" src="">
+        </div>
+        <div id="chessBoardDiv">
+        </div>
+        <div id="playerBottom">
+            <img id="playerBottomImg" src="">
+        </div>
+        <script>
+            buildWhiteTable();
+            addAllListeners();
+            initialGETRequest();
+        </script>
+
+    </body>
+</html>
