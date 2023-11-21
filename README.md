@@ -29,3 +29,13 @@ python run.py
 ```
 ### Go to Site
 [127.0.0.1:5000](http://127.0.0.1:5000)
+
+# Images
+#### Home Screen
+<img src="docs/images/play_screen.png"/>
+
+#### Board
+<img src="docs/images/board.png"/>
+
+#### Pawn Promotion
+<img src="docs/images/promtion.png"/>
