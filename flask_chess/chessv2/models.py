@@ -4,6 +4,7 @@ import chessv2.chess_logic as chs
 from chessv2.piece_loader import PieceLoader
 
 class GameInfo:
+    """The GameInfo object is for passing information from the Controller to the client."""
 
     def __init__(self, state: str, selection: chs.Piece | None, player: str, turn: int, board: list[dict], moves: list | None = None):
         self.state = state
@@ -40,10 +41,19 @@ class Controller:
             chs.SelectionType.PROMOTION: "promotion",
         }
 
-    def _get_player(self):
+    def _get_player(self) -> str:
         return ('black', 'white')[self.game.determine_color()]
+    
 
-    def _get_board_info(self):
+    def _get_board_info(self) -> list[dict[str, str]]:
+        """
+        Returns a list of dictionary objects representing each square on the board.
+            position: the name of the square (e.g., "a1")
+            piece: the name of the piece (e.g., "Pawn")
+            color: the color of the piece, 'black' | 'white
+            img: the file name of the piece to load
+        """
+
         all_squares = [f'{letter}{num}' for letter in list("abcdefgh") for num in range(1, 9)]
         board_list = [] 
         piece_positions = self.game.board.pieces.get_dict('instance', 'position')
@@ -74,7 +84,17 @@ class Controller:
             board_list.append(item_dict)
         return board_list
     
+    
     def handle_input(self, square) -> GameInfo:
+        """
+        Takes a string (square) and sends to the Game object using either
+        `select_piece()` or `select_move()` depeneding on the Game's state.
+        The Game object then returns a SelectionType, which approves, rejects,
+        or asks for more information (SelectionType.PROMOTION).
+        Then a GameInfo object is created to be converted to JSON that can be sent
+        back to fulfill the request.
+        """
+
         if not self.ready_to_select_move:
             selection_message = self.game.select_piece(square)
             print(selection_message)
@@ -154,10 +174,15 @@ class Controller:
         return game_info.to_json()
     
     def request_POST(self, json_post):
+        """Handles POST requests an retrieves the square info."""
+
         square = json_post['square']
         return self.handle_input(square).to_json()
     
+
     def promote_POST(self, json_post):
+        """Handles POST requests for Pawn Promotion."""
+
         promote_to = json_post["promote_to"]
         print(promote_to + "thisline")
         piece_to_promote = self.game.piece_selection
